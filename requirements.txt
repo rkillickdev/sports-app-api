@@ -1,6 +1,6 @@
 Django>=4.0.4,<4.1
 psycopg2>=2.9.3,<2.10
-drf-spectacular>=0.22.1,<0.23
+drf-spectacular>=0.26.0,<0.27
 dj-rest-auth==4.0.0
 django-allauth==0.52.0
 django-cors-headers==4.3.1
