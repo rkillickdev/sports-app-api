@@ -1,8 +1,12 @@
 """
 Tests for models.
 """
+from decimal import Decimal
+
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+
+from core import models
 
 
 class ModelTests(TestCase):
@@ -46,3 +50,20 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_create_location(self):
+        """Test creating a location is successful."""
+        user = get_user_model().objects.create_user(
+            'test@example.com',
+            'testpass123'
+        )
+        location = models.Location.objects.create(
+            user=user,
+            name='sample location name',
+            summary='test summary',
+            latitude =Decimal('52.456545'),
+            longitude =Decimal('24.25358'),
+
+        )
+
+        self.assertEqual(str(location), location.name)
