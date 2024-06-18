@@ -30,8 +30,8 @@ def create_location(user, **params):
     defaults = {
         'name': 'sample location name',
         'summary': 'test summary',
-        'latitude': Decimal('52.456545'),
-        'longitude': Decimal('24.25358'),
+        'country': 'England',
+        'country_code': 'ENG',
     }
     defaults.update(params)
 
@@ -102,8 +102,8 @@ class PrivateLocationAPITests(TestCase):
         """Test creating a location."""
         payload = {
             'name': 'sample location name',
-            'latitude': Decimal('52.456545'),
-            'longitude': Decimal('24.25358'),
+            'country': 'England',
+            'longitude': 'ENG',
         }
         res = self.client.post(LOCATIONS_URL, payload)
 

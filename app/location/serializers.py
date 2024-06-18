@@ -3,7 +3,9 @@ Serializers for location APIs
 """
 from rest_framework import serializers
 
-from core.models import Location
+from core.models import (
+    Location,
+)
 
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -11,7 +13,7 @@ class LocationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Location
-        fields = ['id', 'name', 'latitude', 'longitude']
+        fields = ['id', 'name', 'country', 'country_code']
         read_only_fields = ['id']
 
 

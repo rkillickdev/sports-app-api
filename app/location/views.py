@@ -4,7 +4,9 @@ Views for the location APIs
 from rest_framework import viewsets, mixins
 from rest_framework import permissions
 
-from core.models import Location
+from core.models import (
+    Location,
+)
 from location import serializers
 
 
@@ -28,3 +30,4 @@ class LocationViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         """Create a new location."""
         serializer.save(user=self.request.user)
+

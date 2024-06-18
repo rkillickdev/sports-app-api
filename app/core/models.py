@@ -49,12 +49,30 @@ class Location(models.Model):
     """Location Object"""
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        related_name='locations',
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=255)
     summary = models.TextField(blank=True)
-    latitude = models.DecimalField(max_digits=10, decimal_places=8)
-    longitude = models.DecimalField(max_digits=11, decimal_places=8)
+    country = models.CharField(max_length=255)
+    country_code = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Pitch(models.Model):
+    "Pitch Object"
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    location = models.ForeignKey(
+        Location,
+        on_delete=models.CASCADE,
+    )
 
     def __str__(self):
         return self.name

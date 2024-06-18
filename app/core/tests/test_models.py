@@ -61,9 +61,10 @@ class ModelTests(TestCase):
             user=user,
             name='sample location name',
             summary='test summary',
-            latitude =Decimal('52.456545'),
-            longitude =Decimal('24.25358'),
+            country ='England',
+            country_code ='ENG',
 
         )
 
         self.assertEqual(str(location), location.name)
+
