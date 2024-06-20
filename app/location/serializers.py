@@ -21,4 +21,4 @@ class LocationDetailSerializer(LocationSerializer):
     """Serializer for location detail view"""
 
     class Meta(LocationSerializer.Meta):
-        fileds = LocationSerializer.Meta.fields + ['summary']
+        fields = LocationSerializer.Meta.fields + ['summary']
