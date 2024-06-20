@@ -52,10 +52,10 @@ class Location(models.Model):
         related_name='locations',
         on_delete=models.CASCADE,
     )
+    country = models.CharField(max_length=255)
+    region = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     summary = models.TextField(blank=True)
-    country = models.CharField(max_length=255)
-    country_code = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
