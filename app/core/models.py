@@ -52,8 +52,7 @@ class Location(models.Model):
         related_name='locations',
         on_delete=models.CASCADE,
     )
-    country = models.CharField(max_length=255)
-    region = models.CharField(max_length=255)
+    address = models.JSONField()
     name = models.CharField(max_length=255)
     summary = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

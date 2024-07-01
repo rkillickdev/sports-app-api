@@ -13,7 +13,7 @@ class LocationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Location
-        fields = ['id', 'name', 'country', 'country_code']
+        fields = ['id', 'address', 'name']
         read_only_fields = ['id']
 
 
