@@ -1,6 +1,10 @@
 """
 Database models.
 """
+
+import uuid
+import os
+
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
@@ -8,6 +12,13 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+
+def location_image_file_path(instance, filename):
+    """Generate file path for new location image."""
+    ext = os.path.splitext(filename)[1]
+    filename = f'{uuid.uuid4()}{ext}'
+
+    return os.path.join('uploads', 'location', filename)
 
 
 class UserManager(BaseUserManager):
@@ -55,6 +66,7 @@ class Location(models.Model):
     address = models.JSONField()
     name = models.CharField(max_length=255)
     summary = models.TextField(blank=True)
+    image = models.ImageField(null=True, upload_to=location_image_file_path)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
