@@ -7,6 +7,8 @@ from core.models import (
     Location,
 )
 
+from user.serializers import UserDetailSerializer
+
 
 class LocationSerializer(serializers.ModelSerializer):
     """Serializer for locations."""
@@ -19,6 +21,6 @@ class LocationSerializer(serializers.ModelSerializer):
 
 class LocationDetailSerializer(LocationSerializer):
     """Serializer for location detail view"""
-
+    user = UserDetailSerializer(read_only=True, many=False)
     class Meta(LocationSerializer.Meta):
-        fields = LocationSerializer.Meta.fields + ['summary']
+        fields = LocationSerializer.Meta.fields + ['summary', 'user']
