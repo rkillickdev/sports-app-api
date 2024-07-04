@@ -72,9 +72,24 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
+class Reservation(models.Model):
+    """Reservation Object"""
+    location = models.ForeignKey(
+        Location,
+        related_name='reservations',
+        on_delete=models.CASCADE,
+    )
+    date_time = models.DateTimeField()
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='reservations',
+        on_delete=models.CASCADE,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
 class Pitch(models.Model):
-    "Pitch Object"
+    """Pitch Object"""
     name = models.CharField(max_length=255)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
