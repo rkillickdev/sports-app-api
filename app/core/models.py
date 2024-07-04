@@ -87,6 +87,9 @@ class Reservation(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.created_by}'
+
 
 class Pitch(models.Model):
     """Pitch Object"""

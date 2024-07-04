@@ -13,6 +13,7 @@ from location import views
 
 router = DefaultRouter()
 router.register('locations', views.LocationViewSet)
+router.register('reservations', views.ReservationViewSet)
 
 app_name = 'location'
 

@@ -6,6 +6,7 @@ from rest_framework import permissions
 
 from core.models import (
     Location,
+    Reservation,
 )
 from location import serializers
 
@@ -30,4 +31,15 @@ class LocationViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         """Create a new location."""
         serializer.save(user=self.request.user)
+
+
+class ReservationViewSet(viewsets.ModelViewSet):
+    """View for manage reservation APIs."""
+    serializer_class = serializers.ReservationSerializer
+    queryset = Reservation.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        """Create a new reservation."""
+        serializer.save(created_by=self.request.user)
 
