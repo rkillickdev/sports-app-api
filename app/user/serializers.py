@@ -8,8 +8,10 @@ from core.models import (
     User,
 )
 
+
 class UserDetailSerializer(serializers.ModelSerializer):
     """Serializer for user detail view"""
+
     class Meta:
         model = User
-        fields = ['id', 'name']
+        fields = ["id", "name"]

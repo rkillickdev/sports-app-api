@@ -1,7 +1,8 @@
 """
 Views for the location APIs
 """
-from rest_framework import viewsets, mixins
+
+from rest_framework import viewsets
 from rest_framework import permissions
 
 from core.models import (
@@ -13,6 +14,7 @@ from location import serializers
 
 class LocationViewSet(viewsets.ModelViewSet):
     """View for manage location APIs."""
+
     serializer_class = serializers.LocationDetailSerializer
     queryset = Location.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -23,7 +25,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         """Return the serializer class for requests."""
-        if self.action == 'list':
+        if self.action == "list":
             return serializers.LocationSerializer
 
         return self.serializer_class
@@ -35,6 +37,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
 class ReservationViewSet(viewsets.ModelViewSet):
     """View for manage reservation APIs."""
+
     serializer_class = serializers.ReservationSerializer
     queryset = Reservation.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -42,4 +45,3 @@ class ReservationViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         """Create a new reservation."""
         serializer.save(created_by=self.request.user)
-

@@ -1,6 +1,7 @@
 """
 URL mappings for the location app.
 """
+
 from django.urls import (
     path,
     include,
@@ -12,11 +13,11 @@ from location import views
 
 
 router = DefaultRouter()
-router.register('locations', views.LocationViewSet)
-router.register('reservations', views.ReservationViewSet)
+router.register("locations", views.LocationViewSet)
+router.register("reservations", views.ReservationViewSet)
 
-app_name = 'location'
+app_name = "location"
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]

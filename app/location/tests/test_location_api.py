@@ -1,5 +1,4 @@
 """Tests for location APIs"""
-from decimal import Decimal
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase
@@ -17,21 +16,21 @@ from location.serializers import (
 
 
 # LOCATIONS_URL = reverse('location:location-list')
-LOCATIONS_URL = ('/api/location/locations/')
+LOCATIONS_URL = "/api/location/locations/"
 
 
 def detail_url(location_id):
     """Create and return a location detail URL."""
-    return reverse('location:location-detail', args=[location_id])
+    return reverse("location:location-detail", args=[location_id])
 
 
 def create_location(user, **params):
     """Create and return a sample location."""
     defaults = {
-        'name': 'sample location name',
-        'summary': 'test summary',
-        'country': 'England',
-        'country_code': 'ENG',
+        "name": "sample location name",
+        "summary": "test summary",
+        "country": "England",
+        "country_code": "ENG",
     }
     defaults.update(params)
 
@@ -46,7 +45,6 @@ def create_user(**params):
 
 class PublicLocationAPITests(TestCase):
 
-
     def setUp(self):
         self.client = APIClient()
 
@@ -55,12 +53,13 @@ class PublicLocationAPITests(TestCase):
         res = self.client.get(LOCATIONS_URL)
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
+
 class PrivateLocationAPITests(TestCase):
     """Test authenticated API requests."""
 
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user(email='user@example.com', password='test123')
+        self.user = create_user(email="user@example.com", password="test123")
         self.client.force_authenticate(self.user)
 
     def test_retrieve_locations(self):
@@ -70,14 +69,14 @@ class PrivateLocationAPITests(TestCase):
 
         res = self.client.get(LOCATIONS_URL)
 
-        locations = Location.objects.all().order_by('-id')
+        locations = Location.objects.all().order_by("-id")
         serializer = LocationSerializer(locations, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
 
     def test_location_list_limited_to_user(self):
         """Test list of locations is limited to authenticated user."""
-        other_user = create_user(email='other@example.com', password='test123')
+        other_user = create_user(email="other@example.com", password="test123")
         create_location(user=other_user)
         create_location(user=self.user)
 
@@ -101,17 +100,14 @@ class PrivateLocationAPITests(TestCase):
     def test_create_location(self):
         """Test creating a location."""
         payload = {
-            'name': 'sample location name',
-            'country': 'England',
-            'longitude': 'ENG',
+            "name": "sample location name",
+            "country": "England",
+            "longitude": "ENG",
         }
         res = self.client.post(LOCATIONS_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        location = Location.objects.get(id=res.data['id'])
+        location = Location.objects.get(id=res.data["id"])
         for k, v in payload.items():
             self.assertEqual(getattr(location, k), v)
         self.assertEqual(location.user, self.user)
-
-
-
